@@ -10,7 +10,7 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> std::result::Result<Config, &'static str> {
+    pub fn new(args: &[String]) -> std::result::Result<Config, &str> {
         if args.len() != 3 {
             Err("Not enough arguments")
         } else {
@@ -34,4 +34,31 @@ pub fn run(config: &Config) -> std::result::Result<(), std::io::Error> {
         line.clear();
     }
     Ok(())
+}
+
+pub fn search<'a>(query: &'a str, contents: &'a str) -> Vec<&'a str> {
+    let mut v: Vec<&str> = vec!();
+
+    for p in contents.split('\n') {
+        if let Some(_) = p.find(query) {
+            v.push(p);
+        }
+    }
+    return v;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_result() {
+        let query = "duct";
+        let contents = "\
+Rust:
+safe, fast, productive.
+Pick three.";
+
+        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+    }
 }
