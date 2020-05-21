@@ -5,3 +5,4 @@ pannu
 ello
 pan
 world peace
+covid
