@@ -1,9 +1,5 @@
 // lib.rs
 
-use std::io::prelude::*;
-use std::io::BufReader;
-use std::fs::File;
-
 pub struct Config {
     pub pattern: String,
     pub filename: String
@@ -21,27 +17,19 @@ impl Config {
 }
 
 pub fn run(config: &Config) -> std::result::Result<(), std::io::Error> {
-    let file = File::open(&config.filename)?;
-
-    let mut reader = BufReader::new(file);
-    let mut line = String::new();
-    loop {
-        let len = reader.read_line(&mut line).unwrap();
-        if len <= 0 {
-            break;
-        }
-        print!("{}", line);
-        line.clear();
+    let contents = std::fs::read_to_string(&config.filename)?;
+    for s in search(&config.pattern, &contents) {
+        println!("{}", s);
     }
     Ok(())
 }
 
 pub fn search<'a>(query: &'a str, contents: &'a str) -> Vec<&'a str> {
-    let mut v: Vec<&str> = vec!();
+    let mut v = Vec::new();
 
-    for p in contents.split('\n') {
-        if let Some(_) = p.find(query) {
-            v.push(p);
+    for line in contents.lines() {
+        if line.contains(query) {
+            v.push(line);
         }
     }
     return v;

@@ -1,8 +1,7 @@
 hello
 world
-adarsh
-pannu
-ello
+jello
 pan
-world peace
+world
 covid
+elephant

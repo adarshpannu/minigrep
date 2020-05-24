@@ -19,7 +19,7 @@
                     "kind": "bin"
                 }
             },
-            "args": ["hello", "/Users/adarshrp/Projects/minigrep/testfile.txt"],
+            "args": ["el", "/Users/adarshrp/Projects/minigrep/testfile.txt"],
             "cwd": "${workspaceFolder}"
         },
         {
