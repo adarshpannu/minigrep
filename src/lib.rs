@@ -1,16 +1,16 @@
 // lib.rs
 
-pub struct Config {
-    pub pattern: String,
-    pub filename: String
+pub struct Config<'a> {
+    pub pattern: &'a String,
+    pub filename: &'a String
 }
 
-impl Config {
+impl<'a> Config<'a> {
     pub fn new(args: &[String]) -> std::result::Result<Config, &str> {
         if args.len() != 3 {
             Err("Not enough arguments")
         } else {
-            let cfg = Config { pattern: args[1].clone(), filename: args[2].clone() };
+            let cfg = Config { pattern: &args[1], filename: &args[2] };
             Ok(cfg)
         }
     }
