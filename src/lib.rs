@@ -25,13 +25,8 @@ pub fn run(config: &Config) -> std::result::Result<(), std::io::Error> {
 }
 
 pub fn search<'a>(query: &'a str, contents: &'a str) -> Vec<&'a str> {
-    let mut v = Vec::new();
-
-    for line in contents.lines() {
-        if line.contains(query) {
-            v.push(line);
-        }
-    }
+    let v: Vec<&'a str>;
+    v = contents.lines().filter(|&line| line.contains(query)).collect();
     return v;
 }
 
